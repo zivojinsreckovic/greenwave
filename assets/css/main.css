@@ -1037,12 +1037,19 @@ section,
 # Hero Section
 --------------------------------------------------------------*/
 .hero {
+  --hero-header-offset: 100px;
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--accent-color), transparent 95%) 100%);
   overflow: hidden;
+  box-sizing: border-box;
+  /* Only top offset clears fixed header; vertical centering is flex-based */
+  padding-top: var(--hero-header-offset);
+  padding-bottom: 0;
 }
 
 .hero::before {
@@ -1060,6 +1067,14 @@ section,
 .hero .container {
   position: relative;
   z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 0;
+}
+
+.hero .container .row {
+  width: 100%;
 }
 
 .hero .hero-content {
@@ -1152,12 +1167,19 @@ section,
   text-align: left;
 }
 
+/* Use system/Roboto for numbers – Rozanova has no proper numeral glyphs */
 .hero .hero-content .hero-stats .stat-item h3 {
   font-size: 2rem;
   font-weight: 700;
   color: var(--accent-color);
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif !important;
   margin: 0;
   line-height: 1;
+}
+
+.hero .hero-content .hero-stats .stat-item h3 .purecounter,
+.hero .hero-content .hero-stats .stat-item h3 .purecounter * {
+  font-family: inherit !important;
 }
 
 .hero .hero-content .hero-stats .stat-item p {
@@ -1174,6 +1196,7 @@ section,
 
   .hero .hero-content .hero-stats .stat-item h3 {
     font-size: 1.5rem;
+    font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif !important;
   }
 }
 
@@ -1422,6 +1445,85 @@ section,
   .hero .hero-visual {
     height: 400px;
     margin-top: 2rem;
+  }
+}
+
+/* Hide hero image on mobile/tablet to free up space and improve responsiveness */
+@media (max-width: 991px) {
+  .hero {
+    --hero-header-offset: 90px;
+  }
+
+  .hero .row .col-lg-6:last-child {
+    display: none;
+  }
+
+  .hero .hero-content {
+    text-align: center;
+    padding: 1.5rem 0 2rem;
+  }
+
+  .hero .hero-content .hero-description {
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero .hero-content .hero-stats {
+    justify-content: center;
+  }
+
+  .hero .hero-content .hero-stats .stat-item {
+    text-align: center;
+  }
+
+  .hero .hero-content .hero-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    --hero-header-offset: 80px;
+  }
+
+  .hero .hero-content h1 {
+    font-size: 1.75rem;
+    margin: 1rem 0;
+  }
+
+  .hero .hero-content .hero-description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero .hero-content .hero-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .hero .hero-content .hero-stats .stat-item {
+    min-width: 80px;
+  }
+
+  .hero .hero-content .hero-stats .stat-item h3 {
+    font-size: 1.5rem;
+    font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif !important;
+  }
+
+  .hero .hero-content .hero-stats .stat-item p {
+    font-size: 0.8rem;
+  }
+
+  .hero .hero-content .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 1rem;
+  }
+
+  .hero .hero-content .hero-actions .btn {
+    justify-content: center;
   }
 }
 
