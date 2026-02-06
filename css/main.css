@@ -183,33 +183,53 @@ button,
 
 .header .topbar {
   background-color: var(--accent-color);
-  height: 40px;
-  padding: 0;
+  min-height: 40px;
+  height: auto;
+  padding: 8px 0;
   font-size: 14px;
   transition: all 0.5s;
+}
+
+.header .topbar .contact-info {
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: center;
+  min-width: 0;
 }
 
 .header .topbar .contact-info i {
   font-style: normal;
   color: var(--contrast-color);
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 5px;
+  min-width: 0;
 }
 
 .header .topbar .contact-info i a,
 .header .topbar .contact-info i span {
-  padding-left: 5px;
+  padding-left: 0;
   color: var(--contrast-color);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.35;
+  min-width: 0;
 }
 
 @media (max-width: 575px) {
+  .header .topbar {
+    padding: 10px 0;
+  }
 
   .header .topbar .contact-info i a,
   .header .topbar .contact-info i span {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
 .header .topbar .contact-info i a {
-  line-height: 0;
   transition: 0.3s;
 }
 
@@ -251,7 +271,9 @@ button,
 }
 
 .scrolled .header .topbar {
+  min-height: 0;
   height: 0;
+  padding: 0;
   visibility: hidden;
   overflow: hidden;
 }
@@ -1037,12 +1059,19 @@ section,
 # Hero Section
 --------------------------------------------------------------*/
 .hero {
+  --hero-header-offset: 100px;
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--accent-color), transparent 95%) 100%);
   overflow: hidden;
+  box-sizing: border-box;
+  /* Only top offset clears fixed header; vertical centering is flex-based */
+  padding-top: var(--hero-header-offset);
+  padding-bottom: 0;
 }
 
 .hero::before {
@@ -1060,6 +1089,14 @@ section,
 .hero .container {
   position: relative;
   z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 0;
+}
+
+.hero .container .row {
+  width: 100%;
 }
 
 .hero .hero-content {
@@ -1152,18 +1189,19 @@ section,
   text-align: left;
 }
 
+/* Use system/Roboto for numbers – Rozanova has no proper numeral glyphs */
 .hero .hero-content .hero-stats .stat-item h3 {
   font-size: 2rem;
   font-weight: 700;
   color: var(--accent-color);
-  font-family: var(--default-font);
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif !important;
   margin: 0;
   line-height: 1;
 }
 
-/* Ensure counter numerals are visible (Rozanova lacks proper number glyphs) */
-.hero .hero-content .hero-stats .stat-item h3 .purecounter {
-  font-family: var(--default-font);
+.hero .hero-content .hero-stats .stat-item h3 .purecounter,
+.hero .hero-content .hero-stats .stat-item h3 .purecounter * {
+  font-family: inherit !important;
 }
 
 .hero .hero-content .hero-stats .stat-item p {
@@ -1180,6 +1218,7 @@ section,
 
   .hero .hero-content .hero-stats .stat-item h3 {
     font-size: 1.5rem;
+    font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif !important;
   }
 }
 
@@ -1433,6 +1472,10 @@ section,
 
 /* Hide hero image on mobile/tablet to free up space and improve responsiveness */
 @media (max-width: 991px) {
+  .hero {
+    --hero-header-offset: 120px;
+  }
+
   .hero .row .col-lg-6:last-child {
     display: none;
   }
@@ -1463,8 +1506,11 @@ section,
 
 @media (max-width: 767px) {
   .hero {
-    min-height: auto;
-    padding: 2rem 0 3rem;
+    --hero-header-offset: 130px;
+  }
+
+  .hero .hero-content {
+    padding: 1rem 0;
   }
 
   .hero .hero-content h1 {
@@ -1489,6 +1535,7 @@ section,
 
   .hero .hero-content .hero-stats .stat-item h3 {
     font-size: 1.5rem;
+    font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif !important;
   }
 
   .hero .hero-content .hero-stats .stat-item p {
@@ -1503,6 +1550,17 @@ section,
 
   .hero .hero-content .hero-actions .btn {
     justify-content: center;
+  }
+}
+
+/* Very small phones (e.g. iPhone SE, narrow Galaxy) – extra clearance under header */
+@media (max-width: 390px) {
+  .hero {
+    --hero-header-offset: 140px;
+  }
+
+  .hero .hero-content h1 {
+    font-size: 1.5rem;
   }
 }
 
