@@ -1161,6 +1161,11 @@ section,
   line-height: 1;
 }
 
+/* Ensure counter numerals are visible (Rozanova lacks proper number glyphs) */
+.hero .hero-content .hero-stats .stat-item h3 .purecounter {
+  font-family: var(--default-font);
+}
+
 .hero .hero-content .hero-stats .stat-item p {
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   margin: 0.25rem 0 0 0;
@@ -1423,6 +1428,81 @@ section,
   .hero .hero-visual {
     height: 400px;
     margin-top: 2rem;
+  }
+}
+
+/* Hide hero image on mobile/tablet to free up space and improve responsiveness */
+@media (max-width: 991px) {
+  .hero .row .col-lg-6:last-child {
+    display: none;
+  }
+
+  .hero .hero-content {
+    text-align: center;
+    padding: 1.5rem 0 2rem;
+  }
+
+  .hero .hero-content .hero-description {
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero .hero-content .hero-stats {
+    justify-content: center;
+  }
+
+  .hero .hero-content .hero-stats .stat-item {
+    text-align: center;
+  }
+
+  .hero .hero-content .hero-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    min-height: auto;
+    padding: 2rem 0 3rem;
+  }
+
+  .hero .hero-content h1 {
+    font-size: 1.75rem;
+    margin: 1rem 0;
+  }
+
+  .hero .hero-content .hero-description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero .hero-content .hero-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .hero .hero-content .hero-stats .stat-item {
+    min-width: 80px;
+  }
+
+  .hero .hero-content .hero-stats .stat-item h3 {
+    font-size: 1.5rem;
+  }
+
+  .hero .hero-content .hero-stats .stat-item p {
+    font-size: 0.8rem;
+  }
+
+  .hero .hero-content .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 1rem;
+  }
+
+  .hero .hero-content .hero-actions .btn {
+    justify-content: center;
   }
 }
 
